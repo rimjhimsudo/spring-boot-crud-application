@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 public class CustomerController {
-    //autowiring customer service class here is important coz you cant instatantiate any obect so annotation is importnt
+    //autowiring customer service class here is important coz you cant instatantiate any object so annotation is importnt
     @Autowired
     CustomerService customerService;
     //creating mapping that retrieves all customers
@@ -21,7 +21,7 @@ public class CustomerController {
     }
 
     //creating mapping that get you a customer by id
-    @GetMapping("/customer{cusID}")
+    @GetMapping("/customerDetails/")
     private int getCustomer(@RequestParam("cusID") int cusID){
         return customerService.getCustomerByID(cusID).getCus_id();
     }
@@ -29,7 +29,7 @@ public class CustomerController {
 
     @DeleteMapping("/customer")
     private void deleteCustomer(@RequestParam("cusID") int cusID){
-        customerService.delete(cusID);
+        customerService.deleteById(cusID);
     }
 
     //post that post details of customer in database

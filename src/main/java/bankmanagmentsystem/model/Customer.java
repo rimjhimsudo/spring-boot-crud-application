@@ -8,6 +8,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="customer")
 public class Customer {
+    //annotation for FK
     @Id
     @Column
     private int cus_id;
