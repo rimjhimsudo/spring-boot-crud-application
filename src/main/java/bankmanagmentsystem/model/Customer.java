@@ -1,72 +1,98 @@
 package bankmanagmentsystem.model;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
-@Entity
+@Entity   //annotations to make table at backend
 @Table(name="customer")
 public class Customer {
-    //annotation for FK
+    //annotation for FK to declare foreign key
     @Id
     @Column
-    private int cus_id;
+    private Integer cusId;
     @Column
-    private String cus_name;
+    private String cusName;
     @Column
-    private String cus_address;
+    private String cusAddress;
     @Column
-    private long cus_phone_no;
-    //default constructor is necesar when creatiing more parametrised constructr else gives error
+    private String cusPhoneNumber;
+    @CreatedDate
+    private Date createdAt;
+    //https://stackoverflow.com/questions/49954812/how-can-you-make-a-created-at-column-generate-the-creation-date-time-automatical
+    @LastModifiedDate
+    private Date updatedAt;
+    //default constructor is neccessary if creating more parametrised constructr else gives error
     public Customer() {
     }
 
-    public Customer(int cus_id, String cus_name, long cus_phone_no) {
+    /* //not a good practice, use onl getters and setters to set and get values
+    public Customer(Integer cus_id, String cus_name,String cus_phone_no) {
         this.cus_id = cus_id;
         this.cus_name = cus_name;
         this.cus_phone_no = cus_phone_no;
+    }*/
+
+    public Integer getCusId() {
+        return cusId;
     }
 
-    public int getCus_id() {
-        return cus_id;
+    public void setCusId(Integer cusId) {
+        this.cusId = cusId;
     }
 
-    public void setCus_id(int cus_id) {
-        this.cus_id = cus_id;
+    public String getCusName() {
+        return cusName;
     }
 
-    public String getCus_name() {
-        return cus_name;
+    public void setCusName(String cusName) {
+        this.cusName = cusName;
     }
 
-    public void setCus_name(String cus_name) {
-        this.cus_name = cus_name;
+    public String getCusAddress() {
+        return cusAddress;
     }
 
-    public String getCus_address() {
-        return cus_address;
+    public void setCusAddress(String cusAddress) {
+        this.cusAddress = cusAddress;
     }
 
-    public void setCus_address(String cus_address) {
-        this.cus_address = cus_address;
+    public String getCusPhoneNumber() {
+        return cusPhoneNumber;
     }
 
-    public long getCus_phone_no() {
-        return cus_phone_no;
+    public void setCusPhoneNumber(String cusPhoneNumber) {
+        this.cusPhoneNumber = cusPhoneNumber;
     }
 
-    public void setCus_phone_no(long cus_phone_no) {
-        this.cus_phone_no = cus_phone_no;
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override
     public String toString() {
         return "Customer{" +
-                "cus_id=" + cus_id +
-                ", cus_name='" + cus_name + '\'' +
-                ", cus_address='" + cus_address + '\'' +
-                ", cus_phone_no=" + cus_phone_no +
+                "cusId=" + cusId +
+                ", cusName='" + cusName + '\'' +
+                ", cusAddress='" + cusAddress + '\'' +
+                ", cusPhoneNumber='" + cusPhoneNumber + '\'' +
                 '}';
     }
 }

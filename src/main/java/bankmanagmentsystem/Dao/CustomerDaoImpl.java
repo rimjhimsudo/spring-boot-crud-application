@@ -15,25 +15,36 @@ import java.util.Optional;
 @Component
 public class CustomerDaoImpl implements CustomerDaoInterface{
 
-    @Autowired
+    /*
+    DAO : for filtering/processing result set
+     */
     CustomerRepository customerRepository;
+    /*
+    You can either autowire repo or you can make constructor of daoImpl and initialise repository as done in below line
+     */
+
+    public CustomerDaoImpl(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
     @Override
     public void create(Customer customer) {
         //insert method
         customerRepository.save(customer);
     }
-
+    /*
+      TO DO: see if throws exception if null
+     */
     @Override
-    public Optional<Customer> read(int id) {
+    public Customer read(int id) {
         //get method
         //return null;
-        Optional<Customer> customer=customerRepository.findById(id);
+        Customer customer=customerRepository.findById(id);
         return customer;
     }
 
     @Override
     public List<Customer> readAll() {
-        //return Optional.empty();
         List<Customer> customerslist=new ArrayList<Customer>();
         customerRepository.findAll().forEach(customer -> customerslist.add(customer));
         return customerslist;
@@ -42,6 +53,8 @@ public class CustomerDaoImpl implements CustomerDaoInterface{
     @Override
     public void update(Customer customer) {
         //update any value of  any row already exiting
+        //use find by id then modify object
+        //then modify
         customerRepository.save(customer);
     }
 
