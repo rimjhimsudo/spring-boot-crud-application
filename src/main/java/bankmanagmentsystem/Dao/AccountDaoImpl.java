@@ -23,6 +23,9 @@ public class AccountDaoImpl implements AccountDaoInterface {
     @Override
     public Account read(String  accNumber) {
         Account account=accountRepository.findByAccNumber(accNumber);
+        if(account==null){
+            //throw exception
+        }
         //cant use id
         return account;
     }

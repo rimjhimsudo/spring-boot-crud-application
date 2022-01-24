@@ -3,6 +3,7 @@ package bankmanagmentsystem.service;
 import bankmanagmentsystem.Dao.AccountDaoInterface;
 import bankmanagmentsystem.Dao.CustomerDaoImpl;
 import bankmanagmentsystem.Dao.CustomerDaoInterface;
+import bankmanagmentsystem.exception.ResourceNotfoundException;
 import bankmanagmentsystem.model.Account;
 import bankmanagmentsystem.model.Customer;
 import bankmanagmentsystem.repository.CustomerRepository;
@@ -33,8 +34,12 @@ public class CustomerService {
         customerDaoInterface.readAll().forEach(customer -> customerslist.add(customer));//lambda expession
         return customerslist;
     }
-    public Customer getCustomerByID(int cusID) {
-        return customerDaoInterface.read(cusID);
+    public Customer getCustomerByID(int cusID) throws ResourceNotfoundException{
+        Customer customer= customerDaoInterface.read(cusID);
+        if(customer==null){
+            throw new ResourceNotfoundException("Customer with this id does not exist");
+        }
+        return customer;
     }
 
     public void save(Customer customer) {

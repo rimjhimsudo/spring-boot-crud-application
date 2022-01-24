@@ -1,5 +1,6 @@
 package bankmanagmentsystem.controller;
 
+import bankmanagmentsystem.exception.ResourceNotfoundException;
 import bankmanagmentsystem.model.Account;
 import bankmanagmentsystem.model.Customer;
 import bankmanagmentsystem.service.CustomerService;
@@ -31,8 +32,8 @@ public class CustomerController {
         WHEN GIVING 'cusId' AS PATH VARIABLE THEN IT IS NOT PARAM IN POSTMAN AND USE @PATHVARIABLE
     */
     @GetMapping("/customer/{cusId}")
-    private int getCustomer(@PathVariable int cusId){
-        return customerService.getCustomerByID(cusId).getCusId();
+    private Customer getCustomer(@PathVariable int cusId) throws ResourceNotfoundException {
+        return customerService.getCustomerByID(cusId);
     }
 
 
@@ -54,7 +55,7 @@ public class CustomerController {
         return customer;
     }*/
     @PatchMapping("/customer") //use fields not body
-    public void updateCustomer(@RequestBody Customer customer) {
+    public void updateCustomer(@RequestBody Customer customer) throws ResourceNotfoundException {
         //not making other not specified value as null but persisting
         Customer myCustomer = customerService.getCustomerByID(customer.getCusId());
         //these checks are for values that are provided on postman
