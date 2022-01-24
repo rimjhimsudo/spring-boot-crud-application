@@ -1,12 +1,12 @@
 package bankmanagmentsystem.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity   //annotations to make table at backend
@@ -14,7 +14,7 @@ import java.util.Date;
 public class Customer {
     //annotation for FK to declare foreign key
     @Id
-    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cusId;
     @Column
     private String cusName;
@@ -22,11 +22,11 @@ public class Customer {
     private String cusAddress;
     @Column
     private String cusPhoneNumber;
-    @CreatedDate
-    private Date createdAt;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
     //https://stackoverflow.com/questions/49954812/how-can-you-make-a-created-at-column-generate-the-creation-date-time-automatical
-    @LastModifiedDate
-    private Date updatedAt;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
     //default constructor is neccessary if creating more parametrised constructr else gives error
     public Customer() {
     }
@@ -70,19 +70,19 @@ public class Customer {
         this.cusPhoneNumber = cusPhoneNumber;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
