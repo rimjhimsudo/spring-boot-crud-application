@@ -3,11 +3,10 @@ package bankmanagmentsystem.controller;
 import bankmanagmentsystem.exception.ResourceNotfoundException;
 import bankmanagmentsystem.model.Account;
 import bankmanagmentsystem.model.Customer;
+import bankmanagmentsystem.response.BaseResponse;
 import bankmanagmentsystem.service.CustomerService;
-import org.hibernate.dialect.LobMergeStrategy;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Arrays;
 import java.util.List;
 /*
@@ -15,16 +14,16 @@ import java.util.List;
 */
 @RestController
 public class CustomerController {
-    /*autowiring customer service class here is important coz you cant instatantiate any object
-     so annotation is importnt OR YOU CAN CALL CONSTRUCTOR AND INSTANTIATE SERVICE THERE BECAUSE
-     ANNOTATION SOMETIMES GIVES ERROR
-     */
-    @Autowired
+    BaseResponse baseResponse=new BaseResponse();
     CustomerService customerService;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
     //creating mapping that retrieves all customers
     @GetMapping("/customer")
-    private List<Customer> getAllcustomers(){
-        //return Arrays.asList(new Customer(1,"Database",95603));
+    public List<Customer> getAllcustomers(){
+        //return Arrays.asList(new Customer(1,"Database",95603)); //can be used to instantite here
         return customerService.getAllCustomers();
     }
     //creating mapping that get you a customer by id
@@ -36,25 +35,20 @@ public class CustomerController {
         return customerService.getCustomerByID(cusId);
     }
 
-
     @DeleteMapping("/customer/{cusId}")
     private void deleteCustomer(@PathVariable int cusId){
         customerService.deleteById(cusId);
     }
 
-    //post that post details of customer in database
+    //insert details of customer in database
     @PostMapping("/customer")
     private int saveCustomer(@RequestBody Customer customer){
         customerService.save(customer);
         return customer.getCusId();
     }
-    //creating put mapping that updates details of customers
-    /*@PatchMapping("/customer")
-    private Customer update(@RequestBody Customer customer){
-        customerService.save(customer);
-        return customer;
-    }*/
-    @PatchMapping("/customer") //use fields not body
+
+    //patch mapping that updates details of customers
+    @PatchMapping("/customer")
     public void updateCustomer(@RequestBody Customer customer) throws ResourceNotfoundException {
         //not making other not specified value as null but persisting
         Customer myCustomer = customerService.getCustomerByID(customer.getCusId());
@@ -68,24 +62,28 @@ public class CustomerController {
         if(customer.getCusAddress()!=null){
             myCustomer.setCusAddress(customer.getCusAddress());
         }
-
         customerService.save(myCustomer);
     }
-    //findAndUpdate use
-    @PostMapping("/saveaccount")
+
+    // create account
+    @PostMapping("/account")
     public String saveAccount(@RequestBody Account account){
         customerService.saveAccount(account);
         return account.getAccNumber();
     }
-    @GetMapping("/getaccount/{accNumber}")
+    //get accunt details
+    @GetMapping("/account/{accNumber}")
     public Account getAccount(@PathVariable String accNumber){
         return customerService.getByAccNumber(accNumber);
     }
 
+    //to deduct amount from account balance
     @GetMapping("/withdraw")
-    private String withdraw(@RequestParam String accNumber, @RequestParam int amount){
-        String ans=customerService.withdraw(accNumber,amount);
-        return ans;
+    private BaseResponse withdraw(@RequestParam String accNumber, @RequestParam int amount){
+        String answer=customerService.withdraw(accNumber,amount);
+        baseResponse.setResponseMessage(answer);
+        baseResponse.setResponseCode(HttpStatus.OK.toString());
+        return baseResponse;
     }
 
 

@@ -12,12 +12,14 @@ import java.util.Date;
 public class GlobalExceptionHandler {
     //handle specific exception : you can create more like this
     @ExceptionHandler(ResourceNotfoundException.class)
+    //@ExceptionHandler annotated method is only active for that particular Controller
     public ResponseEntity<?> handleResourceNotfoundException(
             ResourceNotfoundException exception, WebRequest webRequest
             ){
         ErrorDetails errorDetails=new ErrorDetails(new Date(),exception.getMessage(),webRequest.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
+
     //global handler to all other kind of exception
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleException(

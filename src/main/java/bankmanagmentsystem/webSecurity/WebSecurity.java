@@ -6,6 +6,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+/*
+uncomment this to add default web security
+ */
+/*
 //@EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
