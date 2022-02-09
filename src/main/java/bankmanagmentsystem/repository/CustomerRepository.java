@@ -21,8 +21,9 @@ public interface CustomerRepository extends CrudRepository<Customer,Integer> {
     //@Query(value = "select * from customer where cusId=:id",nativeQuery = true)
     //public Customer findByCusId(int cusId);
     public List<Customer> findAll();
-    public Customer findById(int cusId);
+    public Customer findById(Long cusId);
+    public Customer findBycusName(String cusName);
     public Customer save(Customer customer);
-    public void deleteById(int cusId);
+    public void deleteById(Long cusId);
 
 }

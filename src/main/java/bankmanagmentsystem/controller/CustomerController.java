@@ -3,6 +3,7 @@ package bankmanagmentsystem.controller;
 import bankmanagmentsystem.exception.ResourceNotfoundException;
 import bankmanagmentsystem.model.Account;
 import bankmanagmentsystem.model.Customer;
+import bankmanagmentsystem.model.DebitCard;
 import bankmanagmentsystem.response.BaseResponse;
 import bankmanagmentsystem.service.CustomerService;
 import org.springframework.http.HttpStatus;
@@ -31,25 +32,25 @@ public class CustomerController {
         WHEN GIVING 'cusId' AS PATH VARIABLE THEN IT IS NOT PARAM IN POSTMAN AND USE @PATHVARIABLE
     */
     @GetMapping("/customer/{cusId}")
-    private Customer getCustomer(@PathVariable int cusId) throws ResourceNotfoundException {
+    private Customer getCustomer(@PathVariable Long cusId) throws ResourceNotfoundException {
         return customerService.getCustomerByID(cusId);
     }
 
     @DeleteMapping("/customer/{cusId}")
-    private void deleteCustomer(@PathVariable int cusId){
+    private void deleteCustomer(@PathVariable Long cusId){
         customerService.deleteById(cusId);
     }
 
     //insert details of customer in database
     @PostMapping("/customer")
-    private int saveCustomer(@RequestBody Customer customer){
+    private Long saveCustomer(@RequestBody Customer customer){
         customerService.save(customer);
         return customer.getCusId();
     }
 
     //patch mapping that updates details of customers
     @PatchMapping("/customer")
-    public void updateCustomer(@RequestBody Customer customer) throws ResourceNotfoundException {
+    public Long updateCustomer(@RequestBody Customer customer) throws ResourceNotfoundException {
         //not making other not specified value as null but persisting
         Customer myCustomer = customerService.getCustomerByID(customer.getCusId());
         //these checks are for values that are provided on postman
@@ -62,7 +63,8 @@ public class CustomerController {
         if(customer.getCusAddress()!=null){
             myCustomer.setCusAddress(customer.getCusAddress());
         }
-        customerService.save(myCustomer);
+        customerService.update(myCustomer);
+        return myCustomer.getCusId();
     }
 
     // create account
@@ -71,7 +73,7 @@ public class CustomerController {
         customerService.saveAccount(account);
         return account.getAccNumber();
     }
-    //get accunt details
+    //get account details
     @GetMapping("/account/{accNumber}")
     public Account getAccount(@PathVariable String accNumber){
         return customerService.getByAccNumber(accNumber);
@@ -85,6 +87,16 @@ public class CustomerController {
         baseResponse.setResponseCode(HttpStatus.OK.toString());
         return baseResponse;
     }
+    @GetMapping("/customer/name/{cusName}")
+    private Customer getCustomerByName(@PathVariable String cusName) throws ResourceNotfoundException {
+        return customerService.getCustomerByName(cusName); //ideally it must be a list
+    }
+    /*@GetMapping("/debit")
+    public String saveDebit(@RequestBody DebitCard debitCard){
+
+        return debitCard.getDebitHolderName();
+    }*/
+
 
 
 

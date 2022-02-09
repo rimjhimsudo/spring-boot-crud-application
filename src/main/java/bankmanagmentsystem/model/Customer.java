@@ -3,6 +3,7 @@ package bankmanagmentsystem.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,14 +15,12 @@ import java.util.Date;
 
 @Entity
 @Table(name="customer")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @ToString
 public class Customer {
     //annotation for FK to declare foreign key
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer cusId;
+    private Long cusId;
     @Column
     private String cusName;
     @Column
@@ -36,7 +35,8 @@ public class Customer {
     //https://stackoverflow.com/questions/49954812/how-can-you-make-a-created-at-column-generate-the-creation-date-time-automatical
     @UpdateTimestamp
     public LocalDateTime updatedAt;
-
+    @OneToOne(mappedBy = "customer")
+    private Account account;
     @Override
     public String toString() {
         return "Customer{" +

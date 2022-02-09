@@ -13,7 +13,7 @@ import java.sql.Date;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) //AUTO: JPA provider will use any strategy it wants to generate the identifiers
-    private Integer accId;
+    private Long accId;
     @Column(name="accNumber", length=10, nullable=false, unique=true)
     private String accNumber;
     @Column
@@ -22,7 +22,15 @@ public class Account {
     private Integer accBalance;
     @Column
     private Date accOpenDate;
-    /*@Column //make enum
-    private String accType; */ //saving or current or demat
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Type accType;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_cusId", referencedColumnName = "cusId")
+    private Customer customer;
+    private enum Type{
+        SAVING,
+        CURRENT
+    }
 
 }

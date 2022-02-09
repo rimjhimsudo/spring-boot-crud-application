@@ -38,7 +38,7 @@ public class CustomerService {
         return customerslist;
     }
     //to get customer by id from db
-    public Customer getCustomerByID(int cusID) throws ResourceNotfoundException{
+    public Customer getCustomerByID(Long cusID) throws ResourceNotfoundException{
         Customer customer= customerDaoInterface.read(cusID);
         if(customer==null){
             throw new ResourceNotfoundException("Customer with this id does not exist");
@@ -53,7 +53,7 @@ public class CustomerService {
         customerDaoInterface.update(customer); //when already made customer details are updated
     }
     //to delete customer from db
-    public void deleteById(int cusID) {
+    public void deleteById(Long cusID) {
         customerDaoInterface.deleteById(cusID);
     }
 
@@ -97,6 +97,14 @@ public class CustomerService {
         }
         return answer;
     }
+    public Customer getCustomerByName(String cusName) throws ResourceNotfoundException{
+            Customer customer= customerDaoInterface.findBycusName(cusName);
+            if(customer==null){
+                throw new ResourceNotfoundException("Customer with this name does not exist");
+            }
+            return customer;
+    }
+
 
 
 }

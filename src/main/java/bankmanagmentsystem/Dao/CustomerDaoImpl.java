@@ -36,7 +36,7 @@ public class CustomerDaoImpl implements CustomerDaoInterface{
       TO DO: see if throws exception if null
      */
     @Override
-    public Customer read(int id) {
+    public Customer read(Long id) {
         //get method
         //return null;
         Customer customer=customerRepository.findById(id);
@@ -59,8 +59,14 @@ public class CustomerDaoImpl implements CustomerDaoInterface{
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(Long id) {
         customerRepository.deleteById(id);
+    }
+
+    @Override
+    public Customer findBycusName(String cusName) {
+        Customer myCustomer=customerRepository.findBycusName(cusName);
+        return myCustomer;
     }
 
 }

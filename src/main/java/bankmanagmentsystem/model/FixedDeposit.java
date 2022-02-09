@@ -3,19 +3,25 @@ package bankmanagmentsystem.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
+@Entity
+@Table(name="fixeddeposit")
 public class FixedDeposit {
     @Id
     @Column
     @GeneratedValue
-    private Integer fdId;
+    private Long fdId;
     @Column
     private Integer fdAmount;
     @Column
@@ -24,5 +30,9 @@ public class FixedDeposit {
     private String fdAccountnumber;
     @Column
     private Date fdStartdate;
+    @CreationTimestamp
+    public LocalDateTime createdAt;
+    @UpdateTimestamp
+    public LocalDateTime updatedAt;
 
 }

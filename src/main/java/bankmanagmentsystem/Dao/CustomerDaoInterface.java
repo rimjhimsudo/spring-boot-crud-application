@@ -15,8 +15,9 @@ import java.util.List;
  */
 public interface CustomerDaoInterface  {
     void create(Customer customer); //create
-    Customer read(int id);  //get
+    Customer read(Long id);  //get
     List<Customer> readAll();
     void update(Customer customer);  //post
-    void deleteById(int id);  //delete
+    void deleteById(Long id);  //delete
+    Customer findBycusName(String cusName);
 }

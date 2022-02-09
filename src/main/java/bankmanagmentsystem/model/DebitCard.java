@@ -1,26 +1,33 @@
 package bankmanagmentsystem.model;
 
+import bankmanagmentsystem.encryption.StringAttributeConverter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-@Getter
-@Setter
-@NoArgsConstructor
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name="debitcard")
+@Getter @Setter @NoArgsConstructor @ToString
 public class DebitCard {
     @Id
+    @Column(name="debitNum", length=10, nullable=false, unique=true)
+    private String debitNum;
     @Column
-    private Integer debitNum;
+    @Convert(converter = StringAttributeConverter.class)
+    private String debitCvv;   //must be encypted
     @Column
-    private Integer debitCvv;   //must be encypted
-    @Column
-    private String debitHolderName;   // only in years for now  i.e. 1,2,3,n
-    @Column //fk
-    private String debitAccountNumber;   //debit card associated to
+    private String debitHolderName;
+    /*@Column //fk
+    private String debitAccountNumber;*/   //debit card associated to
+    @CreationTimestamp
+    public LocalDateTime createdAt;
 
-
-
-
+    @UpdateTimestamp
+    public LocalDateTime updatedAt;
 }
