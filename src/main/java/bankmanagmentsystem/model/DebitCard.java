@@ -16,13 +16,13 @@ import java.time.LocalDateTime;
 @Getter @Setter @NoArgsConstructor @ToString
 public class DebitCard {
     @Id
-    @Column(name="debitNum", length=10, nullable=false, unique=true)
-    private String debitNum;
+    @Column(name="num", length=10, nullable=false, unique=true)
+    private String num;
     @Column
     @Convert(converter = StringAttributeConverter.class)
-    private String debitCvv;   //must be encypted
+    private String cvv;   //must be encypted
     @Column
-    private String debitHolderName;
+    private String holderName;
     /*@Column //fk
     private String debitAccountNumber;*/   //debit card associated to
     @CreationTimestamp

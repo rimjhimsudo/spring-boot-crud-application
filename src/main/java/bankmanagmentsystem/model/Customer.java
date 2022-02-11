@@ -12,48 +12,46 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
-
+/*
+to do :edit names
+ */
 @Entity
 @Table(name="customer")
 @Getter @Setter @NoArgsConstructor @ToString
 public class Customer {
     //annotation for FK to declare foreign key
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long cusId;
+    private Long id; //1,2,3,4,5(now for ease )
     @Column
-    private String cusName;
+    private String name;
     @Column
-    private String cusAddress;
+    private String address;
     @Column
-    private String cusPhoneNumber;
+    private String phoneNumber;
     @Column
     @Enumerated(EnumType.STRING)
-    private Gender cusGender;
+    private Gender gender;
     @CreationTimestamp
     public LocalDateTime createdAt;
     //https://stackoverflow.com/questions/49954812/how-can-you-make-a-created-at-column-generate-the-creation-date-time-automatical
     @UpdateTimestamp
     public LocalDateTime updatedAt;
-    @OneToOne(mappedBy = "customer")
-    private Account account;
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "cusId=" + cusId +
-                ", cusName='" + cusName + '\'' +
-                ", cusAddress='" + cusAddress + '\'' +
-                ", cusPhoneNumber='" + cusPhoneNumber + '\'' +
-                ", cusGender=" + cusGender +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
 
-    private enum Gender {
-        MALE,
-        FEMALE
+
+    //@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "customer")
+    /*
+    when we use mappedBy then there is no extra column made in this(customer table) and the new column in account is created once but now mapped as bidirectional thing.
+     */
+    /*private Account account;
+    public Account getAccount(){
+        return account;
     }
+    public void setAccount(Account account){
+        this.account=account;
+    }*/
+
+
+
 }
 
 /*

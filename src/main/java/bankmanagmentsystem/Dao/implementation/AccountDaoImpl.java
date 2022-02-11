@@ -1,32 +1,33 @@
-package bankmanagmentsystem.Dao;
+package bankmanagmentsystem.Dao.implementation;
 
+import bankmanagmentsystem.Dao.AccountDao;
 import bankmanagmentsystem.model.Account;
 import bankmanagmentsystem.model.Customer;
 import bankmanagmentsystem.repository.AccountRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import bankmanagmentsystem.repository.CustomerRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 @Component
-public class AccountDaoImpl implements AccountDaoInterface {
+public class AccountDaoImpl implements AccountDao {
     AccountRepository accountRepository;
-    public AccountDaoImpl(AccountRepository accountRepository) {
+    CustomerRepository customerRepository;
+
+    public AccountDaoImpl(AccountRepository accountRepository, CustomerRepository customerRepository) {
         this.accountRepository = accountRepository;
+        this.customerRepository = customerRepository;
     }
 
     @Override
-    public void create(Account account) {
+    public void create(Account account,Customer customer) {
+        account.setCustomer(customer);
         accountRepository.save(account);
     }
 
     @Override
     public Account read(String  accNumber) {
         Account account=accountRepository.findByAccNumber(accNumber);
-        if(account==null){
-            //throw exception
-        }
-        //cant use id
         return account;
     }
 

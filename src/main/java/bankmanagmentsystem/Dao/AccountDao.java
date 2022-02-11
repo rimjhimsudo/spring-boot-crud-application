@@ -5,10 +5,10 @@ import bankmanagmentsystem.model.Customer;
 
 import java.util.List;
 
-public interface AccountDaoInterface {
-    void create(Account account); //create
+public interface AccountDao {
+    void create(Account account,Customer customer); //create
     Account read(String accNumber);  //get
-    List<Account> readAll();
+    List<Account> readAll();        //readAll
     void update(Account account);  //post
     void deleteById(int accId);  //delete
 }

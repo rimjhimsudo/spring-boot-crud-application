@@ -1,19 +1,18 @@
-package bankmanagmentsystem.Dao;
+package bankmanagmentsystem.Dao.implementation;
 
+import bankmanagmentsystem.Dao.CustomerDao;
 import bankmanagmentsystem.model.Customer;
 import bankmanagmentsystem.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 //customerDaoImpl clss-(implements)->customerDao
 //customeDaoIml autowire CustomerRepository
 //serice java class autowirse DaoInterface
 @Component
-public class CustomerDaoImpl implements CustomerDaoInterface{
+public class CustomerDaoImpl implements CustomerDao {
 
     /*
     DAO : for filtering/processing result set
@@ -37,9 +36,7 @@ public class CustomerDaoImpl implements CustomerDaoInterface{
      */
     @Override
     public Customer read(Long id) {
-        //get method
-        //return null;
-        Customer customer=customerRepository.findById(id);
+        Customer customer=customerRepository.findBycusId(id);
         return customer;
     }
 
@@ -60,7 +57,7 @@ public class CustomerDaoImpl implements CustomerDaoInterface{
 
     @Override
     public void deleteById(Long id) {
-        customerRepository.deleteById(id);
+        customerRepository.deleteBycusId(id);
     }
 
     @Override

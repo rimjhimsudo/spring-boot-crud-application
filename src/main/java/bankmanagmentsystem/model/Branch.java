@@ -18,16 +18,16 @@ import java.time.LocalDateTime;
 @Getter @Setter @NoArgsConstructor @ToString
 public class Branch {
     @Id
-    @Column(name="branchCode", length=3, nullable=false, unique=true)
-    private int branchCode; //101 onwards
+    @Column(name="code", length=3, nullable=false, unique=true)
+    private int code; //101 onwards
     @Column
-    private String branchName;
+    private String name;
     @Column
-    private String branchAddress;
+    private String address;
     @Column
-    private String branchPhoneNumber; //numeric
+    private String phoneNumber; //numeric
     @Column
-    private String branchIfscCode; //alphanumeric
+    private String ifscCode; //alphanumeric
 
     @CreationTimestamp
     public LocalDateTime createdAt;

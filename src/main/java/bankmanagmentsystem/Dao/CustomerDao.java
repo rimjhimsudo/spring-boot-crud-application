@@ -1,7 +1,6 @@
 package bankmanagmentsystem.Dao;
 
 import bankmanagmentsystem.model.Customer;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ import java.util.List;
 
     TO DO: IF YOU WANT TO UPDATE INFO AND NOT MAKE ANYTHING ELSE NULL THEN FIND/FETCH AND SAVE implememtation goes IN DAO
  */
-public interface CustomerDaoInterface  {
+public interface CustomerDao {
     void create(Customer customer); //create
     Customer read(Long id);  //get
     List<Customer> readAll();

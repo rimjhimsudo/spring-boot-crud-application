@@ -21,15 +21,13 @@ public class FixedDeposit {
     @Id
     @Column
     @GeneratedValue
-    private Long fdId;
+    private Long id;
     @Column
-    private Integer fdAmount;
+    private Integer principleAmount;
     @Column
-    private Integer fdPeriod;   // only in years for now  i.e. 1,2,3,n
+    private Integer period;   // only in years for now  i.e. 1,2,3,n
     @Column
-    private String fdAccountnumber;
-    @Column
-    private Date fdStartdate;
+    private Date issueDate;
     @CreationTimestamp
     public LocalDateTime createdAt;
     @UpdateTimestamp

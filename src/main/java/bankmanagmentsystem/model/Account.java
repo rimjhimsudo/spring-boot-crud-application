@@ -3,6 +3,8 @@ package bankmanagmentsystem.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -12,25 +14,31 @@ import java.sql.Date;
 @Getter @Setter @NoArgsConstructor
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) //AUTO: JPA provider will use any strategy it wants to generate the identifiers
-    private Long accId;
-    @Column(name="accNumber", length=10, nullable=false, unique=true)
-    private String accNumber;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //AUTO: JPA provider will use any strategy it wants to generate the identifiers
+    private Long id;
+    @Column(name="accNumber", length=4, nullable=false, unique=true)
+    private String number;
     @Column
-    private String accHolderName;
+    private String holderName; //redundant?
     @Column
-    private Integer accBalance;
+    private Integer balance;
     @Column
-    private Date accOpenDate;
+    @CreatedDate
+    private Date openDate;
     @Column
     @Enumerated(EnumType.STRING)
-    private Type accType;
+    private Type type;
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_cusId", referencedColumnName = "cusId")
+    //@JoinColumn(name = "cusId", referencedColumnName = "cusId") //here name is your choice whatever you want to name foreign key here and referncename is actual key which is in customer table and must be present in customer
     private Customer customer;
-    private enum Type{
-        SAVING,
-        CURRENT
+
+    public Customer getCustomer(){
+        return customer;
     }
+    public void setCustomer(Customer customer){
+        this.customer=customer;
+    }
+
 
 }
