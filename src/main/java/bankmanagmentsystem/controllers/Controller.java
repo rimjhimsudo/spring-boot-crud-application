@@ -3,9 +3,12 @@ package bankmanagmentsystem.controllers;
 import bankmanagmentsystem.exceptions.ResourceNotfoundException;
 import bankmanagmentsystem.models.Account;
 import bankmanagmentsystem.models.Customer;
+import bankmanagmentsystem.models.DebitCard;
+import bankmanagmentsystem.models.FixedDeposit;
 import bankmanagmentsystem.response.BaseResponse;
 import bankmanagmentsystem.services.AccountService;
 import bankmanagmentsystem.services.CustomerService;
+import bankmanagmentsystem.services.DebitCardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -14,13 +17,15 @@ import java.util.List;
 */
 @RestController
 public class Controller {
-    BaseResponse baseResponse=new BaseResponse();
+    BaseResponse baseResponse;
     CustomerService customerService;
     AccountService accountService;
+    DebitCardService debitCardService;
 
-    public Controller(CustomerService customerService, AccountService accountService) {
+    public Controller(CustomerService customerService, AccountService accountService, DebitCardService debitCardService) {
         this.customerService = customerService;
         this.accountService = accountService;
+        this.debitCardService = debitCardService;
     }
 
     //creating mapping that retrieves all customers
@@ -104,28 +109,15 @@ public class Controller {
         return baseResponse;
     }
 
-   /* @GetMapping("/debit")
-    public List<Customer> getAllDebitcards(){
-        //return Arrays.asList(new Customer(1,"Database",95603)); //can be used to instantite here
-        return customerService.getAllCustomers();
-    }
+    /*@GetMapping("/debitcards")
+    public List<Customer> getAllDebitCards(){
+        
+        //return debitCardService.getAll();
+    }*/
    @PostMapping("/debit")
-    public String saveDebitcard(@RequestBody DebitCard debitCard){
-        return debitCard.getDebitHolderName();
+    public String saveDebitCard(@RequestBody DebitCard debitCard){
+        return debitCard.getHolderName();
     }
-*/
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

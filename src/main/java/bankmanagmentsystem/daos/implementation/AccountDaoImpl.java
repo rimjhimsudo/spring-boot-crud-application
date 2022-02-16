@@ -6,10 +6,11 @@ import bankmanagmentsystem.models.Customer;
 import bankmanagmentsystem.repositories.AccountRepository;
 import bankmanagmentsystem.repositories.CustomerRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-@Component
+//@Repository
 public class AccountDaoImpl implements AccountDao {
     AccountRepository accountRepository;
     CustomerRepository customerRepository;

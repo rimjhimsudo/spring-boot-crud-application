@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+//@Repository
 public interface AccountRepository  extends CrudRepository<Account,Integer> {
     //to make easier for reader to see what all methods are being used in DAOImpl.
 

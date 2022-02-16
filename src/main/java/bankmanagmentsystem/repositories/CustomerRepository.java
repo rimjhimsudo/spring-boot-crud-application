@@ -13,7 +13,7 @@ import java.util.List;
     AND
     REPOSITORY IS AUTOWIRED  TO DAOIMPL JAVA CLASS
  */
-@Repository
+//@Repository
 public interface CustomerRepository extends CrudRepository<Customer,Integer> {
     //@Query(value = "select * from customer where cusId=:id",nativeQuery = true)
     //public Customer findByCusId(int cusId);

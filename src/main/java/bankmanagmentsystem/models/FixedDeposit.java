@@ -18,19 +18,16 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="fixeddeposit")
 public class FixedDeposit {
-    @Id
-    @Column
-    @GeneratedValue
+    @Id @GeneratedValue
     private Long id;
-    @Column
     private Integer principleAmount;
-    @Column
     private Integer period;   // only in years for now  i.e. 1,2,3,n
-    @Column
     private Date issueDate;
     @CreationTimestamp
     public LocalDateTime createdAt;
     @UpdateTimestamp
     public LocalDateTime updatedAt;
 
+    @ManyToOne
+    Account account;
 }

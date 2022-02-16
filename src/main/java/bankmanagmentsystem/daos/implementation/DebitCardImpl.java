@@ -4,10 +4,11 @@ import bankmanagmentsystem.daos.DebitCardDao;
 import bankmanagmentsystem.models.DebitCard;
 import bankmanagmentsystem.repositories.DebitRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-@Component
+//@Repository
 public class DebitCardImpl implements DebitCardDao {
     DebitRepository debitRepository;
 

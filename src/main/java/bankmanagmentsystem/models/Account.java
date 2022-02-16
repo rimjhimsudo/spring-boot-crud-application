@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name="account")
@@ -32,7 +33,12 @@ public class Account {
     @OneToOne(cascade = CascadeType.ALL)
     //@JoinColumn(name = "cusId", referencedColumnName = "cusId") //here name is your choice whatever you want to name foreign key here and referncename is actual key which is in customer table and must be present in customer
     private Customer customer;
-
+    @OneToMany(mappedBy = "account",cascade = CascadeType.ALL)
+    private List<FixedDeposit> lists;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Branch branch;
+    @OneToOne(cascade = CascadeType.ALL)
+    private DebitCard debitCard;
     public Customer getCustomer(){
         return customer;
     }

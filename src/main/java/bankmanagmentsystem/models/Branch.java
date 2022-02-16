@@ -7,19 +7,18 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name="branch")
 @Getter @Setter @NoArgsConstructor @ToString
 public class Branch {
+    @GeneratedValue
     @Id
     @Column(name="code", length=3, nullable=false, unique=true)
-    private int code; //101 onwards
+    private Long code; //101 onwards
     @Column
     private String name;
     @Column
@@ -28,10 +27,10 @@ public class Branch {
     private String phoneNumber; //numeric
     @Column
     private String ifscCode; //alphanumeric
-
     @CreationTimestamp
     public LocalDateTime createdAt;
-
     @UpdateTimestamp
     public LocalDateTime updatedAt;
+    @OneToMany(mappedBy = "branch")
+    private List<Account> lists;
 }
