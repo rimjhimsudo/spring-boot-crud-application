@@ -13,7 +13,7 @@ import java.util.List;
     THERE IS ONLY ONE SERVICE CLASS FOR 1 SPRING APPLICATION WHICH DEALS WITH 1 CONTROLLER
  */
 @Service
-public class CustomerServiceImpl {
+public class CustomerServiceImpl implements CustomerService{
     AccountDao accountDao;
     CustomerDao customerDao;
 

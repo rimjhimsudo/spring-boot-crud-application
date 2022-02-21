@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 @Service
-public class AccountServiceImpl {
+public class AccountServiceImpl implements AccountService{
     AccountDao accountDao;
     CustomerDao customerDao;
 
@@ -36,15 +36,15 @@ public class AccountServiceImpl {
         if(myCustomer!=null){
             //create account
             account.setCustomer(myCustomer);
-            this.accountDao.create(account);
+            accountDao.create(account);
         }
     }
     private void saveAccount(Account account){
-        this.accountDao.create(account);
+        accountDao.create(account);
     }
     //to update account in db
     public void update(Account account){
-        this.accountDao.update(account);
+        accountDao.update(account);
     }
     //to delete account by accout number from db
     public void deleteByByAccNumber(Integer accNumber){
