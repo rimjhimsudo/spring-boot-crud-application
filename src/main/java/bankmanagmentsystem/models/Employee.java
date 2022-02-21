@@ -20,7 +20,7 @@ public class Employee {
 
     private String dateOfBirth; //date of birth
 
-    private String dateOfjoin; //date of joining
+    private String dateOfJoin; //date of joining
 
     private String role;
 

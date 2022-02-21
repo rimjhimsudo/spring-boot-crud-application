@@ -17,8 +17,7 @@ import java.time.LocalDateTime;
 @Getter @Setter @NoArgsConstructor @ToString
 public class Customer {
     //annotation for FK to declare foreign key
-    @Id
-    @Column(nullable=false, unique=true)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id; //1,2,3,4,5(now for ease )
     @Column
     private String name;

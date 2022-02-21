@@ -2,15 +2,13 @@ package bankmanagmentsystem.daos.implementation;
 
 import bankmanagmentsystem.daos.AccountDao;
 import bankmanagmentsystem.models.Account;
-import bankmanagmentsystem.models.Customer;
 import bankmanagmentsystem.repositories.AccountRepository;
 import bankmanagmentsystem.repositories.CustomerRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-//@Repository
+@Repository
 public class AccountDaoImpl implements AccountDao {
     AccountRepository accountRepository;
     CustomerRepository customerRepository;

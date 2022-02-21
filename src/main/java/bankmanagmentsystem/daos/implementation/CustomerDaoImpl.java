@@ -3,7 +3,6 @@ package bankmanagmentsystem.daos.implementation;
 import bankmanagmentsystem.daos.CustomerDao;
 import bankmanagmentsystem.models.Customer;
 import bankmanagmentsystem.repositories.CustomerRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.List;
 //customerDaoImpl clss-(implements)->customerDao
 //customeDaoIml autowire CustomerRepository
 //serice java class autowirse DaoInterface
-//@Repository
+@Repository
 public class CustomerDaoImpl implements CustomerDao {
 
     /*
@@ -43,7 +42,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public List<Customer> readAll() {
-        List<Customer> customerslist=new ArrayList<Customer>();
+        List<Customer> customerslist=new ArrayList<bankmanagmentsystem.models.Customer>();
         customerRepository.findAll().forEach(customer -> customerslist.add(customer));
         return customerslist;
     }

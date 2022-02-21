@@ -1,7 +1,6 @@
 package bankmanagmentsystem.daos;
 
 import bankmanagmentsystem.models.Account;
-import bankmanagmentsystem.models.Customer;
 
 import java.util.List;
 

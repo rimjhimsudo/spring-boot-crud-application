@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @Getter @Setter @NoArgsConstructor @ToString
 public class DebitCard {
     @Id
-    @Column(name="number", length=10, nullable=false, unique=true)
     private String number;
     @Column
     @Convert(converter = StringAttributeConverter.class)

@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="fixeddeposit")
 public class FixedDeposit {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Integer principleAmount;
     private Integer period;   // only in years for now  i.e. 1,2,3,n

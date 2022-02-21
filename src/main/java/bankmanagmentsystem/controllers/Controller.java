@@ -4,11 +4,10 @@ import bankmanagmentsystem.exceptions.ResourceNotfoundException;
 import bankmanagmentsystem.models.Account;
 import bankmanagmentsystem.models.Customer;
 import bankmanagmentsystem.models.DebitCard;
-import bankmanagmentsystem.models.FixedDeposit;
 import bankmanagmentsystem.response.BaseResponse;
-import bankmanagmentsystem.services.AccountService;
-import bankmanagmentsystem.services.CustomerService;
-import bankmanagmentsystem.services.DebitCardService;
+import bankmanagmentsystem.services.AccountServiceImpl;
+import bankmanagmentsystem.services.CustomerServiceImpl;
+import bankmanagmentsystem.services.DebitCardServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -17,22 +16,22 @@ import java.util.List;
 */
 @RestController
 public class Controller {
-    BaseResponse baseResponse;
-    CustomerService customerService;
-    AccountService accountService;
-    DebitCardService debitCardService;
+    BaseResponse baseResponse=new BaseResponse();
+    CustomerServiceImpl customerServiceImpl;
+    AccountServiceImpl accountServiceImpl ;
+    DebitCardServiceImpl debitCardServiceImpl;
 
-    public Controller(CustomerService customerService, AccountService accountService, DebitCardService debitCardService) {
-        this.customerService = customerService;
-        this.accountService = accountService;
-        this.debitCardService = debitCardService;
+    public Controller(CustomerServiceImpl customerServiceImpl, AccountServiceImpl accountServiceImpl, DebitCardServiceImpl debitCardServiceImpl) {
+        this.customerServiceImpl = customerServiceImpl;
+        this.accountServiceImpl = accountServiceImpl;
+        this.debitCardServiceImpl = debitCardServiceImpl;
     }
 
     //creating mapping that retrieves all customers
     @GetMapping("/customers")
     public List<Customer> getAllcustomers(){
         //return Arrays.asList(new Customer(1,"Database",95603)); //can be used to instantite here
-        return customerService.getAllCustomers();
+        return customerServiceImpl.getAllCustomers();
     }
     //creating mapping that get you a customer by id
     /*
@@ -40,18 +39,18 @@ public class Controller {
     */
     @GetMapping("/customer/{cusId}")
     private Customer getCustomer(@PathVariable Long cusId) throws ResourceNotfoundException {
-        return customerService.getCustomerById(cusId);
+        return customerServiceImpl.getCustomerById(cusId);
     }
 
     @DeleteMapping("/customer/{cusId}")
     private void deleteCustomer(@PathVariable Long cusId){
-        customerService.deleteById(cusId);
+        customerServiceImpl.deleteById(cusId);
     }
 
     //insert details of customer in database
     @PostMapping("/customer")
     private Long saveCustomer(@RequestBody Customer customer){
-        customerService.save(customer);
+        customerServiceImpl.save(customer);
         return customer.getId();
     }
 
@@ -59,7 +58,7 @@ public class Controller {
     @PatchMapping("/customer")
     public Long updateCustomer(@RequestBody Customer customer) throws ResourceNotfoundException {
         //not making other not specified value as null but persisting
-        Customer myCustomer = customerService.getCustomerById(customer.getId());
+        Customer myCustomer = customerServiceImpl.getCustomerById(customer.getId());
         //these checks are for values that are provided on postman
         if(customer.getName()!=null){
             myCustomer.setName(customer.getName());
@@ -70,31 +69,31 @@ public class Controller {
         if(customer.getAddress()!=null){
             myCustomer.setAddress(customer.getAddress());
         }
-        customerService.update(myCustomer);
+        customerServiceImpl.update(myCustomer);
         return myCustomer.getId();
     }
     @GetMapping("/customer/name/{cusName}")
     private Customer getCustomerByName(@PathVariable String cusName) throws ResourceNotfoundException {
-        return customerService.getCustomerByName(cusName); //ideally it must be a list
+        return customerServiceImpl.getCustomerByName(cusName); //ideally it must be a list
     }
 
     // create account
     @PostMapping("/account")
     public String saveAccount(@RequestBody Account account,@RequestParam Long cusId){
 
-        accountService.saveAccount(account,cusId);
+        accountServiceImpl.saveAccount(account,cusId);
         return account.getNumber();
     }
     //get account details
     @GetMapping("/account/{accNumber}")
     public Account getAccount(@PathVariable String accNumber){
-        return accountService.getByAccNumber(accNumber);
+        return accountServiceImpl.getByAccNumber(accNumber);
     }
 
     //to deduct amount from account balance
     @PostMapping("/account/debit")
     private BaseResponse balanceDeduct(@RequestParam String accNumber, @RequestParam int amount){
-        String answer=accountService.debit(accNumber,amount);
+        String answer= accountServiceImpl.debit(accNumber,amount);
         baseResponse.setResponseMessage(answer);
         baseResponse.setResponseCode(HttpStatus.OK.toString());
         return baseResponse;
@@ -102,7 +101,7 @@ public class Controller {
 
     @PostMapping("/account/credit")
     private BaseResponse balanceAdd(@RequestParam String accNumber, @RequestParam int amount){
-        String answer=accountService.credit(accNumber,amount);
+        String answer= accountServiceImpl.credit(accNumber,amount);
         baseResponse.setResponseMessage(answer);
         baseResponse.setResponseCode(HttpStatus.OK.toString());
         baseResponse.setStatus("SUCCESS");
@@ -116,7 +115,8 @@ public class Controller {
     }*/
    @PostMapping("/debit")
     public String saveDebitCard(@RequestBody DebitCard debitCard){
-        return debitCard.getHolderName();
+        DebitCard db=debitCardServiceImpl.save(debitCard);
+        return db.getHolderName();
     }
 
 

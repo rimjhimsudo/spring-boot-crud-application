@@ -15,9 +15,8 @@ import java.util.List;
 @Table(name="branch")
 @Getter @Setter @NoArgsConstructor @ToString
 public class Branch {
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @Column(name="code", length=3, nullable=false, unique=true)
     private Long code; //101 onwards
     @Column
     private String name;

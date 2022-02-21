@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.beans.ConstructorProperties;
 import java.sql.Date;
 import java.util.List;
 
@@ -15,9 +16,9 @@ import java.util.List;
 @Getter @Setter @NoArgsConstructor
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //AUTO: JPA provider will use any strategy it wants to generate the identifiers
+    @GeneratedValue(strategy = GenerationType.AUTO) //AUTO: JPA provider will use any strategy it wants to generate the identifiers
     private Long id;
-    @Column(name="accNumber", length=4, nullable=false, unique=true)
+    @Column(name="accNumber", length=4,unique=true)
     private String number;
     @Column
     private String holderName; //redundant?

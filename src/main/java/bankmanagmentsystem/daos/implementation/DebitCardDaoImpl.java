@@ -3,22 +3,22 @@ package bankmanagmentsystem.daos.implementation;
 import bankmanagmentsystem.daos.DebitCardDao;
 import bankmanagmentsystem.models.DebitCard;
 import bankmanagmentsystem.repositories.DebitRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-//@Repository
-public class DebitCardImpl implements DebitCardDao {
+@Repository
+public class DebitCardDaoImpl implements DebitCardDao {
     DebitRepository debitRepository;
 
-    public DebitCardImpl(DebitRepository debitRepository) {
+    public DebitCardDaoImpl(DebitRepository debitRepository) {
         this.debitRepository = debitRepository;
     }
 
     @Override
-    public void create(DebitCard debitCard) {
-        debitRepository.save(debitCard);
+    public DebitCard create(DebitCard debitCard) {
+        DebitCard myDebitcard=debitRepository.save(debitCard);
+        return myDebitcard;
     }
 
     @Override
