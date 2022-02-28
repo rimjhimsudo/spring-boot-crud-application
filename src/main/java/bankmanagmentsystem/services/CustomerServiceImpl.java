@@ -24,13 +24,13 @@ public class CustomerServiceImpl implements CustomerService{
     }
     //to get all customers from db
     public List<Customer>  getAllCustomers(){
-       List<Customer>  customerslist=new ArrayList<bankmanagmentsystem.models.Customer>();
+       List<Customer>  customerslist=new ArrayList<Customer>();
         customerDao.readAll().forEach(customer -> customerslist.add(customer));//lambda expession
         return customerslist;
     }
     //to get customer by id from db
     public Customer getCustomerById(Long cusID) throws ResourceNotfoundException{
-        Customer customer= this.customerDao.read(cusID);
+        Customer customer= customerDao.read(cusID);
         if(customer==null){
             throw new ResourceNotfoundException("Customer with this id does not exist");
         }
@@ -38,10 +38,10 @@ public class CustomerServiceImpl implements CustomerService{
     }
     //to insert customer into db
     public void save(Customer customer) {
-        this.customerDao.create(customer); //for the first time row is created
+        customerDao.create(customer); //for the first time row is created
     }
     public void update(Customer customer) {
-        this.customerDao.update(customer); //when already made customer details are updated
+        customerDao.update(customer); //when already made customer details are updated
     }
     //to delete customer from db
     public void deleteById(Long cusID) {
@@ -50,7 +50,7 @@ public class CustomerServiceImpl implements CustomerService{
 
 
     public Customer getCustomerByName(String cusName) throws ResourceNotfoundException{
-            Customer customer= this.customerDao.findByName(cusName);
+            Customer customer= customerDao.findByName(cusName);
             if(customer==null){
                 throw new ResourceNotfoundException("Customer with this name does not exist");
             }

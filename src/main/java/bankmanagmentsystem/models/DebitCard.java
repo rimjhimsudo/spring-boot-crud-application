@@ -1,10 +1,7 @@
 package bankmanagmentsystem.models;
 
 import bankmanagmentsystem.encryption.StringAttributeConverter;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="debitcard")
-@Getter @Setter @NoArgsConstructor @ToString
+@Getter @Setter @NoArgsConstructor @ToString @AllArgsConstructor
 public class DebitCard {
     @Id
     private String number;

@@ -13,5 +13,5 @@ public interface AccountRepository  extends CrudRepository<Account,Integer> {
     public Account findByNumber(String accNumber); //this query is made up of find+by+attribute name
     public Account save(Account account);
     public List<Account> findAll();
-    public void deleteById(int accId);
+    public void deleteByNumber(String accNumber);
 }

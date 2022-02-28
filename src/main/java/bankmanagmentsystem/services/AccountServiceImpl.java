@@ -31,13 +31,15 @@ public class AccountServiceImpl implements AccountService{
         return accountDao.read(accNumber);
     }
     //to insert account into db
-    public void saveAccount(Account account, Long cusId){
+    public String saveAccount(Account account, Long cusId){
         Customer myCustomer = customerDao.read(cusId);
         if(myCustomer!=null){
             //create account
             account.setCustomer(myCustomer);
-            accountDao.create(account);
+            String number=accountDao.create(account);
+            return number;
         }
+        return  new String("customer does not exist");
     }
     private void saveAccount(Account account){
         accountDao.create(account);
@@ -47,8 +49,8 @@ public class AccountServiceImpl implements AccountService{
         accountDao.update(account);
     }
     //to delete account by accout number from db
-    public void deleteByByAccNumber(Integer accNumber){
-        accountDao.deleteById(Math.toIntExact(accNumber));
+    public void deleteByByAccNumber(String accNumber){
+        accountDao.deleteByNumber(accNumber);
     }
 
     // method to withdraw/deduct money from account

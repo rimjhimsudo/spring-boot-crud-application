@@ -118,6 +118,15 @@ public class Controller {
         DebitCard db=debitCardServiceImpl.save(debitCard);
         return db.getHolderName();
     }
+    @GetMapping("/debitcards")
+    public List<DebitCard> getAllDebitCards(){
+       return debitCardServiceImpl.getAll();
+    }
+    @GetMapping("/debitcard/{number}")
+    public DebitCard getDebitCardByNumber(@PathVariable String number) throws ResourceNotfoundException {
+       return debitCardServiceImpl.getByNumber(number);
+
+    }
 
 
 

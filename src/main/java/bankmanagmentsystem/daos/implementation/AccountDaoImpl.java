@@ -19,8 +19,9 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public void create(Account account) {
-        accountRepository.save(account);
+    public String create(Account account) {
+        Account myaccount=accountRepository.save(account);
+        return myaccount.getNumber();
     }
 
     @Override
@@ -42,7 +43,7 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public void deleteById(int accId) {
-        accountRepository.deleteById(accId);
+    public void deleteByNumber(String accNumber) {
+        accountRepository.deleteByNumber(accNumber);
     }
 }
